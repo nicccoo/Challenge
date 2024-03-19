@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using PQS.FSChallenge.Business.Models;
 using System.ComponentModel.DataAnnotations;
-using System.Net;
 
 namespace PQS.FSChallenge.Business.Services
 {
@@ -15,7 +13,7 @@ namespace PQS.FSChallenge.Business.Services
             _context = context;
         }
 
-        public async Task<IEnumerable<OrderInfo>> GetOrders(int status)
+        public async Task<IEnumerable<OrderInfo>> GetOrders(OrderStatus status)
         {
             return await _context.OrderInfo.Where(x => x.Status == status).ToListAsync();
         }
@@ -31,9 +29,9 @@ namespace PQS.FSChallenge.Business.Services
             var order = _context.Orders.FirstOrDefault(o => o.OrderId == orderId);
             if (order != null)
             {
-                if (order.Status == 0)
+                if (order.Status == OrderStatus.Pending)
                 {
-                    order.Status = 1;
+                    order.Status = OrderStatus.Approved;
 
                     _context.SaveChanges();
                 }
@@ -55,9 +53,9 @@ namespace PQS.FSChallenge.Business.Services
             var order = _context.Orders.FirstOrDefault(o => o.OrderId == orderId);
             if (order != null)
             {
-                if (order.Status == 0)
+                if (order.Status == OrderStatus.Pending)
                 {
-                    order.Status = -1;
+                    order.Status = OrderStatus.Rejected;
 
                     _context.SaveChanges();
                 }
