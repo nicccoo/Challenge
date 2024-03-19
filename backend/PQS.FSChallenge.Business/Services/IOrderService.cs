@@ -9,7 +9,7 @@ namespace PQS.FSChallenge.Business.Services
 {
     public interface IOrderService
     {
-        Task<IEnumerable<OrderInfo>> GetOrders(int orderId);
+        Task<IEnumerable<OrderInfo>> GetOrders(OrderStatus status);
         Task<Order> GetOrderById(int orderId);
         void ApproveOrder(int orderId);
         void RejectOrder(int orderId);
