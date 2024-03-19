@@ -20,7 +20,9 @@ namespace PQS.FSChallenge.Business.Services
 
         public async Task<Order> GetOrderById(int orderId)
         {
-            var order = await _context.Orders.Include(x => x.OrderItems).FirstOrDefaultAsync(x => x.OrderId == orderId);
+            var order = await _context.Orders
+                .Include(x => x.OrderItems)
+                .FirstOrDefaultAsync(x => x.OrderId == orderId);
             return order ?? throw new UnauthorizedAccessException();
         }
 
