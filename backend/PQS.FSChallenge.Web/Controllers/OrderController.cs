@@ -14,12 +14,12 @@ namespace PQS.FSChallenge.Web.Controllers
         public OrderController(OrderService order)
         {
             _orderService = order;
-        }
+        }  
 
         [HttpGet("pending")]
         public async Task<ActionResult<IEnumerable<OrderInfo>>> GetPendingOrders()
         {
-            var pendingOrders = await _orderService.GetOrders(0);
+            var pendingOrders = await _orderService.GetOrders(OrderStatus.Pending);
             if (pendingOrders == null) return NotFound();
 
             return Ok(pendingOrders);
@@ -28,7 +28,7 @@ namespace PQS.FSChallenge.Web.Controllers
         [HttpGet("approved")]
         public async Task<ActionResult<IEnumerable<OrderInfo>>> GetApprovedOrders()
         {
-            var approvedOrders = await _orderService.GetOrders(1);
+            var approvedOrders = await _orderService.GetOrders(OrderStatus.Approved);
             if (approvedOrders == null) NotFound();
 
             return Ok(approvedOrders);
@@ -37,7 +37,7 @@ namespace PQS.FSChallenge.Web.Controllers
         [HttpGet("rejected")]
         public async Task<ActionResult<IEnumerable<OrderInfo>>> GetRejectedOrders()
         {
-            var rejectedOrders = await _orderService.GetOrders(-1);
+            var rejectedOrders = await _orderService.GetOrders(OrderStatus.Rejected);
             if (rejectedOrders == null) NotFound();
 
             return Ok(rejectedOrders);
