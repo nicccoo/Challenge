@@ -12,16 +12,17 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//Habilitar CORS
 builder.Services.AddCors();
-
-
-
+//Db Context
 builder.Services.AddDbContext<FSChallengeContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("PQSDB"));
 });
 
+//Services
 builder.Services.AddScoped<OrderService>();
+//Service para ignorar ciclos.
 builder.Services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 var app = builder.Build();
 
@@ -33,6 +34,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+//Parametros para CORS.
 app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
 app.UseAuthorization();
