@@ -5,10 +5,10 @@ using System.Collections.Generic;
 
 namespace PQS.FSChallenge.Business.Models
 {
-    public partial class OrderInfo
+    public class OrderInfo
     {
         public int OrderId { get; set; }
-        public int Status { get; set; }
+        public OrderStatus Status { get; set; }
         public string OrderDescription { get; set; }
         public DateTime CreatedOn { get; set; }
         public decimal UnitPrice { get; set; }

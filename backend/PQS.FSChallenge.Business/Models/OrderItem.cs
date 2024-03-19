@@ -6,7 +6,7 @@ using System.Text.Json.Serialization;
 
 namespace PQS.FSChallenge.Business.Models
 {
-    public partial class OrderItem
+    public class OrderItem
     {
         public int OrderItemId { get; set; }
         public int OrderId { get; set; }
